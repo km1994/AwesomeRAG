@@ -242,9 +242,9 @@ Embedding 将离散信息（单词和符号）压缩为分布式连续值数据�
 
 - 介绍
 - 实战技巧：
-  - **【Docs构建索引——Faiss】**
-  - **【Docs构建索引——milvus】**
-  - **【Docs构建索引—— Elasticsearch】**
+  - **[【Docs构建索引——Faiss】](https://articles.zsxq.com/id_9adfmnhcppou.html)**
+  - **[【Docs构建索引——milvus】](https://articles.zsxq.com/id_67uolswwomqx.html)**
+  - **[【Docs构建索引—— Elasticsearch】](https://articles.zsxq.com/id_7evv3mtfdxbw.html)**
 
 ## 模块三：大模型微调
 
@@ -307,25 +307,113 @@ PEFT主要想解决的问题，就是FFT存在的上述两个问题，PEFT也是
 
 - 介绍：如何构建 训练数据？
 - 实战技巧：
-  - **【大模型（LLMs）LLM生成SFT数据方法篇】**
+  - **[【大模型（LLMs）LLM生成SFT数据方法篇】](https://articles.zsxq.com/id_nvvujwg77sn8.html)**
 
 ### step 2：大模型指令微调篇
 
 - 介绍：如何构建 训练数据？
 - 实战技巧：
-  - **【大模型（LLMs）继续预训练篇】**
-  - **【大模型（LLMs）指令微调篇】**
-  - **【大模型（LLMs）奖励模型训练篇】**
-  - **【大模型（LLMs）强化学习——PPO训练篇】**
-  - **【大模型（LLMs）强化学习——DPO训练篇】**
+  - **[【大模型（LLMs）继续预训练篇】](https://articles.zsxq.com/id_ddtrij3zbcic.html)**
+  - **[【大模型（LLMs）指令微调篇】](https://articles.zsxq.com/id_fuxxu83p423m.html)**
+  - **[【大模型（LLMs）奖励模型训练篇】](https://articles.zsxq.com/id_1ax2wmszimz2.html)**
+  - **[【大模型（LLMs）强化学习——PPO训练篇】](https://articles.zsxq.com/id_3ap59jndj6fa.html)**
+  - **[【大模型（LLMs）强化学习——DPO训练篇】](https://articles.zsxq.com/id_89ivqmt4lw2j.html)**
 
+## 模块四：文档检索
 
+### 为什么 需要 文档检索？
 
+文档检索 作为 RAG 核心工作，其效果对于下游工作至关重要。
 
+虽然可以通过向量召回的方式从文档库里召回和用户问题相关的文档片段，同时输入到LLM中，增强模型回答质量。
 
+常用的方式直接用用户的问题进行文档召回。但是很多时候，**用户的问题是十分口语化的，描述的也比较模糊，这样会影响向量召回的质量，进而影响模型回答效果**。
 
+本章主要介绍 文档检索 过程中 存在的一些问题和对应的解决方法。
 
+### step 1：文档检索负样本样本挖掘
 
+- 介绍：在各类检索任务中，为训练好一个高质量的检索模型，往往需要从大量的候选样本集合中采样高质量的负例，配合正例一起进行训练。
+- 实战技巧：
+  - **[【文档检索——负样本样本挖掘篇】](https://articles.zsxq.com/id_cdtoftb6lfbb.html)**
+
+### step 2：文档检索优化策略
+
+- 介绍：文档检索优化策略
+- 实战技巧：
+  - **[【文档检索——文档检索优化策略篇】](https://articles.zsxq.com/id_3x6c1sog5fi2.html)**
+
+## 模块五：Reranker
+
+### 为什么 需要 Reranker？
+
+基本的 RAG 应用包括四个关键技术组成部分：
+
+- Embedding 模型：用于将外部文档和用户查询转换成 Embedding 向量
+- 向量数据库：用于存储 Embedding 向量和执行向量相似性检索（检索出最相关的 Top-K 个信息）
+- 提示词工程（Prompt engineering）：用于将用户的问题和检索到的上下文组合成大模型的输入
+- 大语言模型（LLM）：用于生成回答
+
+上述的基础 RAG 架构可以有效解决 LLM 产生“幻觉”、生成内容不可靠的问题。但是，**一些企业用户对上下文相关性和问答准确度提出了更高要求，需要更为复杂的架构。一个行之有效且较为流行的做法就是在 RAG 应用中集成 Reranker**。
+
+### 什么是 Reranker？
+
+**Reranker 是信息检索（IR）生态系统中的一个重要组成部分，用于评估搜索结果，并进行重新排序，从而提升查询结果相关性**。
+
+在 RAG 应用中，主要在拿到向量查询（ANN）的结果后使用 Reranker，能够更有效地确定文档和查询之间的语义相关性，更精细地对结果重排，最终提高搜索质量。
+
+### step 1：Reranker 篇
+
+- 理论学习：
+  - **[【RAG文档检索——Reranker 篇】](https://articles.zsxq.com/id_hrdg0abngzww.html)**
+- 实战技巧：
+  - **[【Reranker——bge-reranker篇】](https://articles.zsxq.com/id_ed7i2t32wdrz.html)**
+
+## 模块六：RAG 评测面 
+
+### 为什么需要 对 RAG 进行评测？
+
+在探索和优化 RAG（检索增强生成器）的过程中，如何有效评估其性能已经成为关键问题。
+
+### step 1：RAG 评测 篇
+
+- 理论学习：
+  - **[【RAG评测篇】](https://articles.zsxq.com/id_bs4s6x213o8i.html)**
+
+## 模块七：RAG 开源项目推荐学习
+
+### 为什么 需要 RAG 开源项目推荐学习？
+
+前面已经带你走完了 RAG 的各个流程，下面将推荐一些 RAG 开源项目，帮助大佬们进行消化学习。
+
+#### RAG 开源项目推荐 —— RAGFlow 篇
+
+- 介绍：RAGFlow 是一款基于深度文档理解构建的开源 RAG（Retrieval-Augmented Generation）引擎。RAGFlow 可以为各种规模的企业及个人提供一套精简的 RAG 工作流程，结合大语言模型（LLM）针对用户各类不同的复杂格式数据提供可靠的问答以及有理有据的引用。
+- 项目学习：
+  - **[【RAG 项目推荐——RagFlow 篇(一)——RagFlow docker 部署】](https://articles.zsxq.com/id_oota38wboidk.html)**
+  - **[【RAG 项目推荐——RagFlow 篇(二)——RagFlow 知识库构建】](https://articles.zsxq.com/id_lfsekvfvqrs3.html)**
+  - **[【RAG 项目推荐——RagFlow 篇(三)——RagFlow 模型供应商选择】](https://articles.zsxq.com/id_ac0xn785c6mo.html)**
+  - **[【RAG 项目推荐——RagFlow 篇(四)——RagFlow 对话】](https://articles.zsxq.com/id_aamqhv6h4lsn.html)**
+  - **[【RAG 项目推荐——RagFlow 篇(五)——RAGFlow Api 接入（以 ollama 为例）】](https://articles.zsxq.com/id_ol0qu2w2eraf.html)**
+  - **[【RAG 项目推荐——RagFlow 篇(六)——RAGFlow 源码学习】](https://articles.zsxq.com/id_c0br2l9vkwi3.html)**
+
+#### RAG 开源项目推荐 —— QAnything 篇
+
+- 介绍：QAnything（Question and Answer based on Anything）是一个本地知识库问答系统，旨在支持多种文件格式和数据库，允许离线安装和使用。使用QAnything，您可以简单地删除本地存储的任何格式的文件，并获得准确、快速和可靠的答案。QAnything目前支持的知识库文件格式包括：PDF(pdf) , Word(docx) , PPT(pptx) , XLS(xlsx) , Markdown(md) , Email(eml) , TXT(txt) , Image(jpg，jpeg，png) , CSV (csv)、网页链接(html)等。
+- 项目学习：
+  - **[【RAG 开源项目推荐 —— QAnything 篇】](https://articles.zsxq.com/id_ead246k33bxk.html)**
+
+#### RAG 开源项目推荐 —— ElasticSearch-Langchain 篇
+
+- 介绍：受langchain-ChatGLM项目启发，由于Elasticsearch可实现文本和向量两种方式混合查询，且在业务场景中使用更广泛，因此本项目用Elasticsearch代替Faiss作为知识存储库，利用Langchain+Chatglm2实现基于自有知识库的智能问答。
+- 项目学习：
+  - **[【【LLMs 入门实战】基于 本地知识库 的高效 🤖ElasticSearch-Langchain-Chatglm2】](https://articles.zsxq.com/id_0259did6jf16.html)**
+
+#### RAG 开源项目推荐 —— Langchain-Chatchat 篇
+
+- 介绍：Langchain-Chatchat（原Langchain-ChatGLM）基于 Langchain 与 ChatGLM 等语言模型的本地知识库问答 | Langchain-Chatchat (formerly langchain-ChatGLM), local knowledge based LLM (like ChatGLM) QA app with langchain
+- 项目学习：
+  - **[【【LLMs 入门实战】基于 本地知识库 的高效 🤖Langchain-Chatchat】](https://github.com/chatchat-space/Langchain-Chatchat)**
 
 
 
